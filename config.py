@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv 
 
 load_dotenv()
 @dataclass(frozen=True)
@@ -9,6 +9,7 @@ class Settings:
     model: str = os.getenv("MODEL")
     max_retries: int = int(os.getenv("MAX_RETRIES", 3)) #intentos ante fallos
     timeout_seconds: int = int(os.getenv("TIMEOUT_SECONDS", "30")) #tiempo MAXIMO DE ESPERA
-    max_history: int = int(os.getenv("MAX_HISTORY", "12"))# máximo de mensajes en el historial
+    max_history_messages: int = int(os.getenv("MAX_HISTORY", "12"))# máximo de mensajes en el historial
+    system_name: str = os.getenv("SYSTEM_NAME", "Chatbot Gemini - Práctico")
 settings = Settings()
     

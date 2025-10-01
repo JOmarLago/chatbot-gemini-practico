@@ -1,13 +1,23 @@
-from enum import Enum
+# memory.py
+from collections import deque
+from typing import Deque, Dict, List
 
-class RolesPresent(Enum):
-    PROFESSOR = "profesor"
-    TRADUCTOR = "traductor"
-    PROGRAMADOR = "programador"
-    ASISTENTE = "asistente"
-ROLES_SYSTEM_PROMPT = {
-    RolesPresent.PROFESSOR: (
-        "Actua como profesor paciente y comprensivo, dispuesto a ayudar a los estudiantes con sus dudas y preguntas. Tu objetivo es explicar conceptos de manera clara y accesible, fomentando un ambiente de aprendizaje positivo.",
-        "Resumi al final con bullets de 2-4 puntos"
-    )
-}
+class ConversationMemory:
+    """
+    Memoria simple en cola: guarda últimos 12 turnos (usuario/modelo).
+    Compatible con el formato de Gemini (role + parts).
+    """
+    def __init__(self, max_messages: int = 12):
+        self._messages: Deque[Dict] = deque(maxlen=max_messages)
+
+    def add_user(self, content: str):
+        self._messages.append({"role": "user", "parts": [{"text": content}]})
+
+    def add_model(self, content: str):
+        self._messages.append({"role": "model", "parts": [{"text": content}]})
+
+    def get(self) -> List[Dict]:
+        return list(self._messages)
+
+    def clear(self):
+        self._messages.clear()

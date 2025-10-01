@@ -1,0 +1,42 @@
+# Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Binarios y compilación
+bin/
+obj/
+Debug/
+Release/
+
+# Archivos de configuración locales (no subir tus settings privados)
+*.config
+appsettings.Development.json
+
+# Archivos de paquetes
+packages/
+*.nupkg
+*.snupkg
+
+# Archivos temporales
+*.log
+*.tmp
+*.cache
+*.db
+
+# Archivos de publicación
+publish/
+
+# Archivos de backup
+*.bak
+
+# Archivos de sistema de Windows
+Thumbs.db
+desktop.ini
+# Entornos virtuales
+venv/
+.env
+__pycache__/
+*.pyc

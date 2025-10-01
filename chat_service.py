@@ -4,7 +4,7 @@ from config import settings
 from memory import ConversationMemory
 from prompts import build_system_prompt, collapse_history
 from roles import RolesPresent, ROLES_SYSTEM_PROMPT
-from llm.client import GeminiClient
+from llm_client import GeminiClient
 
 class ChatService:
     def __init__(self, role: RolesPresent = RolesPresent.MOTIVACIONAL):
@@ -33,7 +33,9 @@ class ChatService:
         system_prompt = build_system_prompt(role_instructions)
 
         # Historial de mensajes + prompt inicial
-        history = [{"role": "system", "content": system_prompt}] + collapse_history(self.memory.get())
+        # Ahora (correcto para Gemini)
+        history = [{"role": "user", "parts": [{"text": system_prompt}]}] + collapse_history(self.memory.get())
+
 
         response = self.client.generate(history)
 
